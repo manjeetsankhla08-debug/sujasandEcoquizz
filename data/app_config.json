@@ -4,38 +4,84 @@
   "apps_script_url": "https://script.google.com/macros/s/AKfycbx1GCtRg2wzw6MLfC01zwabXDMNVCBWvhYzdsP9qDc2ueWPYVhzQ8OtsyG991LfVB-Y/exec",
   "upi_id": "rajca@upi",
   "is_under_maintenance": false,
-  "pricing_plans": {
-    "sujas_week_pass": {
-      "id": "plan_sujas_week",
-      "name": "Sujas Previous Week Unlock",
+  "free_days": 7,
+  "pricing_plans": [
+    {
+      "id": "sujas_week",
+      "name": "Sujas Previous Week",
+      "nameHi": "सुजस पिछला सप्ताह",
       "price": 9,
-      "is_free": false,
-      "is_locked": false,
-      "description": "Unlock previous week Sujas Quizzes"
+      "durationDays": 7,
+      "content": ["sujas_quiz"],
+      "isActive": true,
+      "isFree": false,
+      "order": 1
     },
-    "sujas_month_pass": {
-      "id": "plan_sujas_month",
-      "name": "Sujas Full Month Unlock",
+    {
+      "id": "sujas_month",
+      "name": "Sujas Full Month",
+      "nameHi": "सुजस पूरा महीना",
       "price": 29,
-      "is_free": false,
-      "is_locked": false,
-      "description": "Unlock complete month Sujas Quizzes"
+      "durationDays": 30,
+      "content": ["sujas_quiz"],
+      "isActive": true,
+      "isFree": false,
+      "order": 2
     },
-    "pdf_monthly_pass": {
-      "id": "plan_pdf_monthly",
-      "name": "Monthly Current Affairs PDFs",
+    {
+      "id": "eco_month",
+      "name": "Eco Quiz Monthly",
+      "nameHi": "आर्थिक समीक्षा मासिक",
       "price": 29,
-      "is_free": false,
-      "is_locked": false,
-      "description": "Full access to Monthly Sujas & Eco PDFs"
+      "durationDays": 30,
+      "content": ["eco_quiz"],
+      "isActive": true,
+      "isFree": false,
+      "order": 3
     },
-    "all_access_pass": {
-      "id": "plan_all_access",
-      "name": "ALL ACCESS PASS (Full Pack)",
+    {
+      "id": "pdf_1month",
+      "name": "PDF 1 Month",
+      "nameHi": "PDF 1 महीना",
+      "price": 29,
+      "durationDays": 30,
+      "content": ["pdf"],
+      "isActive": true,
+      "isFree": false,
+      "order": 4
+    },
+    {
+      "id": "pdf_3month",
+      "name": "PDF 3 Months",
+      "nameHi": "PDF 3 महीने",
+      "price": 69,
+      "durationDays": 90,
+      "content": ["pdf"],
+      "isActive": true,
+      "isFree": false,
+      "order": 5
+    },
+    {
+      "id": "pdf_6month",
+      "name": "PDF 6 Months",
+      "nameHi": "PDF 6 महीने",
+      "price": 119,
+      "durationDays": 180,
+      "content": ["pdf"],
+      "isActive": true,
+      "isFree": false,
+      "order": 6
+    },
+    {
+      "id": "all_access",
+      "name": "ALL ACCESS PASS",
+      "nameHi": "सम्पूर्ण एक्सेस पास",
       "price": 49,
-      "is_free": false,
-      "is_locked": false,
-      "description": "Full Access to Sujas + Eco Quizzes + Monthly PDFs"
+      "durationDays": 30,
+      "content": ["sujas_quiz", "eco_quiz", "pdf", "mock_test"],
+      "isActive": true,
+      "isFree": false,
+      "order": 7
     }
-  }
+  ]
 }
