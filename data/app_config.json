@@ -3,5 +3,39 @@
   "telegram_channel": "https://t.me/SujasEcoDaily",
   "apps_script_url": "https://script.google.com/macros/s/AKfycbx1GCtRg2wzw6MLfC01zwabXDMNVCBWvhYzdsP9qDc2ueWPYVhzQ8OtsyG991LfVB-Y/exec",
   "upi_id": "rajca@upi",
-  "is_under_maintenance": false
+  "is_under_maintenance": false,
+  "pricing_plans": {
+    "sujas_week_pass": {
+      "id": "plan_sujas_week",
+      "name": "Sujas Previous Week Unlock",
+      "price": 9,
+      "is_free": false,
+      "is_locked": false,
+      "description": "Unlock previous week Sujas Quizzes"
+    },
+    "sujas_month_pass": {
+      "id": "plan_sujas_month",
+      "name": "Sujas Full Month Unlock",
+      "price": 29,
+      "is_free": false,
+      "is_locked": false,
+      "description": "Unlock complete month Sujas Quizzes"
+    },
+    "pdf_monthly_pass": {
+      "id": "plan_pdf_monthly",
+      "name": "Monthly Current Affairs PDFs",
+      "price": 29,
+      "is_free": false,
+      "is_locked": false,
+      "description": "Full access to Monthly Sujas & Eco PDFs"
+    },
+    "all_access_pass": {
+      "id": "plan_all_access",
+      "name": "ALL ACCESS PASS (Full Pack)",
+      "price": 49,
+      "is_free": false,
+      "is_locked": false,
+      "description": "Full Access to Sujas + Eco Quizzes + Monthly PDFs"
+    }
+  }
 }
