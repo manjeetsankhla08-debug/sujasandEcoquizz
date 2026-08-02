@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sujas and Eco Quizz Telegram WebApp</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080915;
+      --card: #13152C;
+      --purple: #7000FF;
+      --cyan: #00D1FF;
+      --gold: #FFD700;
+      --green: #00E676;
+      --red: #FF5252;
+      --text: #F1F5F9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans Devanagari', 'Outfit', sans-serif; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background: #0D0E23;
+      border-radius: 28px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(112, 0, 255, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      background: linear-gradient(90deg, #00D1FF, #7000FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .score-chip {
+      background: rgba(112, 0, 255, 0.2);
+      border: 1px solid rgba(112, 0, 255, 0.4);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--cyan);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7000FF, #00D1FF);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+    .category-tag {
+      display: inline-block;
+      background: linear-gradient(90deg, #7000FF, #3B82F6);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .question-card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .option-tile {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .option-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .option-text { font-size: 15px; font-weight: 600; flex-grow: 1; }
+    .option-tile.correct {
+      border-color: var(--green) !important;
+      background: rgba(0, 230, 118, 0.15) !important;
+    }
+    .option-tile.correct .option-badge { background: var(--green); color: #000; }
+    .option-tile.wrong {
+      border-color: var(--red) !important;
+      background: rgba(255, 82, 82, 0.15) !important;
+    }
+    .option-tile.wrong .option-badge { background: var(--red); color: #FFF; }
+    .explanation-box {
+      display: none;
+      background: rgba(112, 0, 255, 0.15);
+      border: 1px solid rgba(112, 0, 255, 0.4);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 18px;
+    }
+    .exp-header { color: var(--cyan); font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+    .exp-text { font-size: 14px; line-height: 1.4; color: rgba(255, 255, 255, 0.9); }
+    .next-btn {
+      width: 100%;
+      height: 50px;
+      background: var(--cyan);
+      border: none;
+      border-radius: 16px;
+      color: #080915;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <div class="header">
+      <div class="brand-title">Sujas and Eco Quizz</div>
+      <div class="score-chip">⭐ स्कोर: <span id="score">0</span></div>
+    </div>
+
+    <div class="progress-info">
+      <span id="qCount">प्रश्न 1 / 1</span>
+      <span id="pct">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="pFill"></div>
+    </div>
+
+    <div class="category-tag" id="tag">🎯 राजस्थान सुजस</div>
+
+    <div class="question-card" id="qText">लोड हो रहा है...</div>
+
+    <div class="options-list" id="opts"></div>
+
+    <div class="explanation-box" id="exp">
+      <div class="exp-header">💡 व्याख्या (Explanation):</div>
+      <div class="exp-text" id="expText"></div>
+    </div>
+
+    <button class="next-btn" id="nBtn" style="display:none;" onclick="nextQ()">अगला प्रश्न (Next Question) ➔</button>
+  </div>
+
+  <script>
+    if (window.Telegram && window.Telegram.WebApp) {
+      Telegram.WebApp.ready();
+      Telegram.WebApp.expand();
+    }
+
+    let questions = [];
+    let curIdx = 0;
+    let score = 0;
+    let answered = false;
+
+    async function loadData() {
+      try {
+        const res = await fetch('https://cdn.jsdelivr.net/gh/manjeetsankhla08-debug/sujasandEcoquizz@main/data/daily_ca.json');
+        questions = await res.json();
+        renderQ();
+      } catch (e) {
+        document.getElementById('qText').innerText = "डाटा लोड करने में समस्या आई।";
+      }
+    }
+
+    function renderQ() {
+      if (!questions.length) return;
+      answered = false;
+      const q = questions[curIdx];
+      document.getElementById('qText').innerText = q.questionText;
+      document.getElementById('tag').innerText = '🎯 ' + (q.category || q.topic || 'राजस्थान सुजस');
+      document.getElementById('qCount').innerText = `प्रश्न ${curIdx + 1} / ${questions.length}`;
+      
+      const pct = Math.round(((curIdx + 1) / questions.length) * 100);
+      document.getElementById('pct').innerText = `${pct}%`;
+      document.getElementById('pFill').style.width = `${pct}%`;
+
+      document.getElementById('exp').style.display = 'none';
+      document.getElementById('nBtn').style.display = 'none';
+
+      const optContainer = document.getElementById('opts');
+      optContainer.innerHTML = '';
+      const labels = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((opt, idx) => {
+        const div = document.createElement('div');
+        div.className = 'option-tile';
+        div.onclick = () => selectOpt(div, idx, q.correctIndex);
+        div.innerHTML = `
+          <div class="option-badge">${labels[idx]}</div>
+          <div class="option-text">${opt}</div>
+        `;
+        optContainer.appendChild(div);
+      });
+    }
+
+    function selectOpt(elem, selected, correct) {
+      if (answered) return;
+      answered = true;
+
+      const tiles = document.querySelectorAll('.option-tile');
+      tiles[correct].classList.add('correct');
+
+      if (selected !== correct) {
+        elem.classList.add('wrong');
+      } else {
+        score += 10;
+        document.getElementById('score').innerText = score;
+      }
+
+      const q = questions[curIdx];
+      if (q.explanation) {
+        document.getElementById('expText').innerText = q.explanation;
+        document.getElementById('exp').style.display = 'block';
+      }
+      document.getElementById('nBtn').style.display = 'block';
+    }
+
+    function nextQ() {
+      if (curIdx < questions.length - 1) {
+        curIdx++;
+        renderQ();
+      } else {
+        alert(`क्विज़ समाप्त! कुल स्कोर: ${score}`);
+        if (window.Telegram && window.Telegram.WebApp) {
+          Telegram.WebApp.close();
+        }
+      }
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
